@@ -91,6 +91,9 @@ func splitAyahForTweet(ayahToSplit *ayah) []string {
 		return []string{ayahToSplit.ayahText}
 	}
 
+	// Number of characters required to show tweet part [1/5]. We use the max possible number of chars required
+	// to simplify things. For example, if a tweet has 15 parts, we don't calculate the first ten parts with having
+	// [1/10] as the count indicator. Instead we assume it has [01/10], simplifying our calculation
 	numberOfParts := int(len(ayahToSplit.ayahText)/spaceLeftForAyah) + 1
 	tweetCountLen := 1
 	if numberOfParts > 10 {
