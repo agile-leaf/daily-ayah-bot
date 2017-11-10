@@ -10,7 +10,7 @@ import (
 )
 
 const TOTAL_AYAHS = 6236
-const MY_USERNAME = "@daily_ayah_bot"
+const TWEET_CHARS = 280 // Apparently this CAN change!
 
 func main() {
 	currentConfig := loadConfig()
@@ -85,7 +85,7 @@ func splitAyahForTweet(ayahToSplit *ayah) []string {
 
 	footer := ayahToSplit.getFooter()
 	// <AYAH>\n\n<FOOTER>
-	spaceLeftForAyah := 140 - len(footer) - 2
+	spaceLeftForAyah := TWEET_CHARS - len(footer) - 2
 
 	if spaceLeftForAyah > len(ayahToSplit.ayahText) {
 		return []string{ayahToSplit.ayahText}
@@ -93,7 +93,8 @@ func splitAyahForTweet(ayahToSplit *ayah) []string {
 
 	// Number of characters required to show tweet part [1/5]. We use the max possible number of chars required
 	// to simplify things. For example, if a tweet has 15 parts, we don't calculate the first ten parts with having
-	// [1/10] as the count indicator. Instead we assume it has [01/10], simplifying our calculation
+	// [1/10] as the count indicator. Instead we assume it has [01/10], simplifying our calculation. We also assume
+	// that there will never be a tweet that needs to be split up into more than a 100 parts!
 	numberOfParts := int(len(ayahToSplit.ayahText)/spaceLeftForAyah) + 1
 	tweetCountLen := 1
 	if numberOfParts > 10 {

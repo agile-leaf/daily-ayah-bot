@@ -72,5 +72,5 @@ func getRandomAyahLine(r io.Reader) (string, error) {
 }
 
 func (a *ayah) getFooter() string {
-	return fmt.Sprintf("%d:%d %s", a.surahNumber, a.ayahNumber, a.surahName)
+	return fmt.Sprintf("%d:%d %s #quran #ayah", a.surahNumber, a.ayahNumber, a.surahName)
 }
